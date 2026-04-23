@@ -13,7 +13,7 @@
       <div class="mb-3">
         {% csrf_token %}
         {{ form.as_p }}
-        <input id="img_data" type="hidden" name="img_data"/>
+        <input id="img_data" type="hidden" name="img_data" />
       </div>
       <img id="preview" style="display: none;" class="img-fluid mb-3" />
       <br>
@@ -21,14 +21,19 @@
     </form>
 
     {% if top5 %}
-      <ul>
+     <div id="top5">
+      <h3>アップロード画像</h3>
+      <img src="{{ img_data }}">
+      <h3>予測結果</h3>
+       <ul>
         {% for item in top5 %}
           <li>
             {{ forloop.counter }}位:
             {{ item.1 }} ({{ item.2|floatformat:3 }})
           </li>
         {% endfor %}
-      </ul>
+       </ul>
+     </div>
     {% endif %}
   </div>
 
@@ -40,8 +45,10 @@
             reader.onload = function () {
                 $("#preview").attr('src', reader.result);
                 $("#preview").show();
+                $("#img_data").val(reader.result);
             }
             reader.readAsDataURL(this.files[0]);
+            $("#top5").text('');
             });
         });
     </script>

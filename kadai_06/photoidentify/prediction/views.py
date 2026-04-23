@@ -31,8 +31,8 @@ def predict(request):
          result = model.predict(img_array)
          prediction = decode_predictions(result, top=5)
          top5 = prediction[0]
- 
-         return render(request, 'home.html', {'form': form, 'top5': top5})
+         img_data = request.POST.get('img_data') 
+         return render(request, 'home.html', {'form': form, 'top5': top5, 'img_data': img_data})
      else:
           #print("FORM INVALID")
           #print("ERRORS:", form.errors)
